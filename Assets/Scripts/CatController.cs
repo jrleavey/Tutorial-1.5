@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Audio : MonoBehaviour
+public class CatController : MonoBehaviour
 {
 
     [SerializeField]
@@ -13,10 +13,12 @@ public class Audio : MonoBehaviour
 
     [SerializeField]
     private AudioClip _audioClip2;
+
+    Animator _anim;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,25 +28,30 @@ public class Audio : MonoBehaviour
         {
             Application.Quit();
         }
-
-
         if (Input.GetKeyDown(KeyCode.W))
         {
             _audioSource.clip = _audioClip1;
             _audioSource.Play();
+            _anim.SetInteger("State", 1);
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
             _audioSource.Stop();
+            _anim.SetInteger("State", 0);
+
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
             _audioSource.clip = _audioClip2;
             _audioSource.Play();
+            _anim.SetInteger("State", 2);
+
         }
         if (Input.GetKeyUp(KeyCode.R))
         {
             _audioSource.Stop();
+            _anim.SetInteger("State", 0);
+
         }
     }
 }
